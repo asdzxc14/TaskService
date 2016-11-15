@@ -14,12 +14,12 @@ var TaskNoneState = (function () {
 egret.registerClass(TaskNoneState,'TaskNoneState',["State"]);
 var TaskAvilableState = (function () {
     function TaskAvilableState(npc) {
-        this.taskSighX = 64;
-        this.taskSighY = 64;
-        this.taskSighWidth = 64;
-        this.taskSighHeight = 64;
+        this.taskSignX = 200;
+        this.taskSignY = 336;
+        this.taskSignWidth = 64;
+        this.taskSignHeight = 64;
         this.npc = npc;
-        this.taskSign = new egret.Shape();
+        this.taskSign = new egret.Bitmap();
     }
     var d = __define,c=TaskAvilableState,p=c.prototype;
     p.onEnter = function () {
@@ -32,40 +32,42 @@ var TaskAvilableState = (function () {
         console.log("Exit Task Avilable State");
     };
     p.drawTaskSign = function () {
-        this.taskSign.x = this.taskSighX;
-        this.taskSign.y = this.taskSighY;
-        this.taskSign.width = this.taskSighWidth;
-        this.taskSign.height = this.taskSighHeight;
+        this.taskSign.x = this.taskSignX;
+        this.taskSign.y = this.taskSignY;
+        this.taskSign.width = this.taskSignWidth;
+        this.taskSign.height = this.taskSignHeight;
+        this.taskSign.texture = RES.getRes(npcImage.ACCEPTABLEimage);
     };
     return TaskAvilableState;
 }());
 egret.registerClass(TaskAvilableState,'TaskAvilableState',["State"]);
-var TaskSubmitState = (function () {
-    function TaskSubmitState(npc) {
-        this.taskSighX = 64;
-        this.taskSighY = 64;
-        this.taskSighWidth = 64;
-        this.taskSighHeight = 64;
+var TaskCanSubmitState = (function () {
+    function TaskCanSubmitState(npc) {
+        this.taskSignX = 200;
+        this.taskSignY = 336;
+        this.taskSignWidth = 64;
+        this.taskSignHeight = 64;
         this.npc = npc;
-        this.taskSigh = new egret.Shape();
+        this.taskSign = new egret.Bitmap();
     }
-    var d = __define,c=TaskSubmitState,p=c.prototype;
+    var d = __define,c=TaskCanSubmitState,p=c.prototype;
     p.onEnter = function () {
         this.drawTaskSign();
-        this.npc.npcStage.addChild(this.taskSigh);
+        this.npc.npcStage.addChild(this.taskSign);
         console.log("Enter Task Submit State");
     };
     p.onExit = function () {
-        this.npc.npcStage.removeChild(this.taskSigh);
+        this.npc.npcStage.removeChild(this.taskSign);
         console.log("Exit Task Submit State");
     };
     p.drawTaskSign = function () {
-        this.taskSigh.x = this.taskSighX;
-        this.taskSigh.y = this.taskSighY;
-        this.taskSigh.width = this.taskSighWidth;
-        this.taskSigh.height = this.taskSighHeight;
+        this.taskSign.x = this.taskSignX;
+        this.taskSign.y = this.taskSignY;
+        this.taskSign.width = this.taskSignWidth;
+        this.taskSign.height = this.taskSignHeight;
+        this.taskSign.texture = RES.getRes(npcImage.CAN_SUBMITimage);
     };
-    return TaskSubmitState;
+    return TaskCanSubmitState;
 }());
-egret.registerClass(TaskSubmitState,'TaskSubmitState',["State"]);
+egret.registerClass(TaskCanSubmitState,'TaskCanSubmitState',["State"]);
 //# sourceMappingURL=NPCState.js.map

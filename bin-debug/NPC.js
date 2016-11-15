@@ -3,7 +3,7 @@ var npcImage = {
     npc_1: "NPC2_png",
     ACCEPTABLEimage: "ACCEPTABLE_png",
     DURINGimage: "DURING_png",
-    CCAN_SUBMITimage: "CAN_SUBMIT_png",
+    CAN_SUBMITimage: "CAN_SUBMIT_png",
 };
 var NPC = (function () {
     function NPC(npcId, npcName, taskService) {
@@ -21,7 +21,7 @@ var NPC = (function () {
         this.taskService.addObserver(this, "NPC");
         this.taskNoneState = new TaskNoneState(this);
         this.taskAvilableState = new TaskAvilableState(this);
-        this.taskSubmitState = new TaskSubmitState(this);
+        this.taskCanSubmitState = new TaskCanSubmitState(this);
         this.taskStateMachine = new StateMachine(this.taskNoneState);
     }
     var d = __define,c=NPC,p=c.prototype;
@@ -59,12 +59,8 @@ var NPC = (function () {
     };
     p.checkState = function () {
         switch (this.task.status) {
-            case TaskStatus.UNACCEPTABLE:
-            case TaskStatus.DURING:
-            case TaskStatus.SUBMITTED:
-                this.taskStateMachine.changeState(this.taskNoneState);
-                break;
-            case TaskStatus.ACCEPTABLE:
+            case 0:
+            case 1:
                 if (this.task.fromNpcId == this.npcId) {
                     this.taskStateMachine.changeState(this.taskAvilableState);
                 }
@@ -72,13 +68,17 @@ var NPC = (function () {
                     this.taskStateMachine.changeState(this.taskNoneState);
                 }
                 break;
-            case TaskStatus.CAN_SUBMIT:
+            case 2:
+            case 3:
                 if (this.task.toNpcId == this.npcId) {
-                    this.taskStateMachine.changeState(this.taskSubmitState);
+                    this.taskStateMachine.changeState(this.taskCanSubmitState);
                 }
                 else {
                     this.taskStateMachine.changeState(this.taskNoneState);
                 }
+                break;
+            case 4:
+                this.taskStateMachine.changeState(this.taskNoneState);
                 break;
         }
     };

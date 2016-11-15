@@ -9,10 +9,9 @@ class TaskPanel implements Observer {
 	private backColor = 0xFFFAFA;
 	private backGround: egret.Shape;
 	private panelX = 240;
-	private panelY = 180;
+	private panelY = 150;
 	private panelWidth = 200;
 	private panelHeight = 350;
-
 
 	private taskNameTextField: egret.TextField;
 	private taskNameTextFieldText = "";
@@ -43,7 +42,6 @@ class TaskPanel implements Observer {
 	private buttonTextFieldWidth = 100;
 	private buttonTextFieldColor = 0xFFFAFA;
 
-
 	public constructor(stage: egret.DisplayObjectContainer, taskService: TaskService) {
 		this.stage = stage;
 		this.taskService = taskService;
@@ -72,22 +70,18 @@ class TaskPanel implements Observer {
 		this.taskDescTextField.width = this.taskDescTextFieldWidth;
 		this.taskDescTextField.bold = false;
 		this.taskDescTextField.textColor = this.taskDescTextFieldColor;
-
-
 	}
 
 	private drawBackGround() {
 		this.backGround.graphics.beginFill(this.backColor, 1);
 		this.backGround.graphics.drawRect(0, 0, this.panelWidth, this.panelHeight);
 		this.backGround.graphics.endFill();
-
 	}
 
 	private drawButtonBack() {
 		this.buttonBack.graphics.beginFill(this.buttonColor, 1);
 		this.buttonBack.graphics.drawRect(this.buttonX, this.buttonY, this.buttonWidth, this.buttonHeight);
 		this.buttonBack.graphics.endFill();
-
 	}
 
 	private setButtonText() {
@@ -97,7 +91,6 @@ class TaskPanel implements Observer {
 		this.buttonTextField.width = this.buttonTextFieldWidth;
 		this.buttonTextField.bold = false;
 		this.buttonTextField.textColor = this.buttonTextFieldColor;
-
 	}
 
 	private drawButton() {
@@ -121,7 +114,6 @@ class TaskPanel implements Observer {
 		this.panel.addChild(this.button);
 		this.button.touchEnabled = true;
 		this.button.addEventListener(egret.TouchEvent.TOUCH_TAP, this.onButtonClick, this);
-
 	}
 
 	private onButtonClick(e: egret.TouchEvent) {
@@ -139,11 +131,9 @@ class TaskPanel implements Observer {
 
 			default:
 				console.log("Button Click");
-
 		}
 
 		this.stage.removeChild(this.panel);
-
 	}
 
 	private onStageClick(e: egret.TouchEvent) {
@@ -160,13 +150,11 @@ class TaskPanel implements Observer {
 		this.changeButton(task.status);
 		this.currentTaskStatus = task.status;
 		this.showPanel();
-
-	} 
+	}
 
 	private changeTaskText(name: string, desc: string) {
 		this.taskNameTextField.text = name;
 		this.taskDescTextField.text = desc;
-
 	}
 
 	private changeButton(taskStatus: number) {
@@ -182,11 +170,7 @@ class TaskPanel implements Observer {
 			default:
 				this.buttonTextField.text = "";
 				break;
-
 		}
-
 	}
-
-
-
 }
+

@@ -2,7 +2,7 @@ var TaskPanel = (function () {
     function TaskPanel(stage, taskService) {
         this.backColor = 0xFFFAFA;
         this.panelX = 240;
-        this.panelY = 180;
+        this.panelY = 150;
         this.panelWidth = 200;
         this.panelHeight = 350;
         this.taskNameTextFieldText = "";
@@ -19,7 +19,7 @@ var TaskPanel = (function () {
         this.buttonX = 50;
         this.buttonY = 200;
         this.buttonWidth = 100;
-        this.buttonHeight = 60;
+        this.buttonHeight = 50;
         this.buttonTextFieldText = "";
         this.buttonTextFieldX = this.buttonX + 20;
         this.buttonTextFieldY = this.buttonY + 10;

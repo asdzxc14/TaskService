@@ -3,7 +3,7 @@ var npcImage = {
     npc_1: "NPC2_png",
     ACCEPTABLEimage: "ACCEPTABLE_png",
     DURINGimage: "DURING_png",
-    CCAN_SUBMITimage: "CAN_SUBMIT_png",
+    CAN_SUBMITimage: "CAN_SUBMIT_png",
 }
 
 class NPC implements Observer {
@@ -25,7 +25,7 @@ class NPC implements Observer {
 
     taskNoneState: State;
     taskAvilableState: State;
-    taskSubmitState: State;
+    taskCanSubmitState: State;
     taskStateMachine: StateMachine;
 
     public constructor(npcId: string, npcName: string, taskService: TaskService) {
@@ -39,7 +39,7 @@ class NPC implements Observer {
 
         this.taskNoneState = new TaskNoneState(this);
         this.taskAvilableState = new TaskAvilableState(this);
-        this.taskSubmitState = new TaskSubmitState(this);
+        this.taskCanSubmitState = new TaskCanSubmitState(this);
         this.taskStateMachine = new StateMachine(this.taskNoneState);
     }
 
@@ -66,12 +66,10 @@ class NPC implements Observer {
     drawNpcShape() {
         this.npcStageShape.graphics.drawRect(0, 0, this.npcStageWidth, this.npcStageHeight);
         this.npcStageShape.graphics.endFill();
-
     }
 
     drawNpc() {
         this.drawNpcShape();
-
         this.npcStage.x = this.npcStageX;
         this.npcStage.y = this.npcStageY;
         this.npcStage.width = this.npcStageWidth;
@@ -85,13 +83,9 @@ class NPC implements Observer {
 
     checkState() {
         switch (this.task.status) {
-            case TaskStatus.UNACCEPTABLE:
-            case TaskStatus.DURING:
-            case TaskStatus.SUBMITTED:
-                this.taskStateMachine.changeState(this.taskNoneState);
-                break;
+            case 0:
 
-            case TaskStatus.ACCEPTABLE:
+            case 1:
                 if (this.task.fromNpcId == this.npcId) {
                     this.taskStateMachine.changeState(this.taskAvilableState);
                 } else {
@@ -99,28 +93,31 @@ class NPC implements Observer {
                 }
                 break;
 
-            case TaskStatus.CAN_SUBMIT:
+            case 2:
+
+            case 3:
                 if (this.task.toNpcId == this.npcId) {
-                    this.taskStateMachine.changeState(this.taskSubmitState);
+                    this.taskStateMachine.changeState(this.taskCanSubmitState);
                 } else {
                     this.taskStateMachine.changeState(this.taskNoneState);
                 }
                 break;
 
+            case 4:
+                this.taskStateMachine.changeState(this.taskNoneState);
+                break;
         }
-
     }
 
     onChange(task: Task) {
         this.task = task;
         this.checkState();
     }
-    
-///////////////////
+
+    ///////////////////
     onNpcClick(e: egret.TouchEvent) {
         if (this.task.status == TaskStatus.ACCEPTABLE && this.task.fromNpcId == this.npcId) {
             this.taskService.notifyTaskPanel(this.task);
-
         } else if (this.task.status == TaskStatus.CAN_SUBMIT && this.task.toNpcId == this.npcId) {
             this.taskService.notifyTaskPanel(this.task);
         }

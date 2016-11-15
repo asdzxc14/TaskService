@@ -117,20 +117,19 @@ class Main extends egret.DisplayObjectContainer {
      * Create a game scene
      */
     private createGameScene(): void {
-
         this.touchEnabled = true;
 
         var taskService = new TaskService();
-
         var taskPanel = new TaskPanel(this, taskService);
 
-        var npc_0 = new NPC("npc_0", "NPC_1",taskService);
+
+        var npc_0 = new NPC("npc_0", "NPC_1", taskService);
         npc_0.setNpc(0, 100);
         npc_0.drawNpc();
         this.addChild(npc_0.npcStage);
         npc_0.getTask();
 
-        var npc_1 = new NPC("npc_1", "NPC_2",taskService);
+        var npc_1 = new NPC("npc_1", "NPC_2", taskService);
         npc_1.setNpc(200, 100);
         npc_1.drawNpc();
         this.addChild(npc_1.npcStage);

@@ -1,7 +1,7 @@
 class TaskNoneState implements State {
-	private npc:NPC;
+	private npc: NPC;
 
-	constructor(npc:NPC) {
+	constructor(npc: NPC) {
 		this.npc = npc;
 	}
 
@@ -14,80 +14,72 @@ class TaskNoneState implements State {
 	}
 }
 
+
+
 class TaskAvilableState implements State {
-	private npc:NPC;
+	private npc: NPC;
 
-	taskSign:egret.Shape;
-	taskSighX = 64;
-	taskSighY = 64;
-	taskSighWidth = 64;
-	taskSighHeight = 64;
+	taskSign: egret.Bitmap;
+	taskSignX = 200;
+	taskSignY = 336;
+	taskSignWidth = 64;
+	taskSignHeight = 64;
 
-	constructor(npc:NPC) {
+	constructor(npc: NPC) {
 		this.npc = npc;
-		this.taskSign = new egret.Shape();
-		
+		this.taskSign = new egret.Bitmap();
 	}
 
 	onEnter() {
-        this.drawTaskSign();		
+        this.drawTaskSign();
 		this.npc.npcStage.addChild(this.taskSign);
 		console.log("Enter Task Avilable State");
-
 	}
 
 	onExit() {
 		this.npc.npcStage.removeChild(this.taskSign);
 		console.log("Exit Task Avilable State");
-
 	}
 
-	drawTaskSign(){
-		this.taskSign.x = this.taskSighX;
-		this.taskSign.y = this.taskSighY;
-		this.taskSign.width = this.taskSighWidth;
-		this.taskSign.height = this.taskSighHeight;
-
-
+	drawTaskSign() {
+		this.taskSign.x = this.taskSignX;
+		this.taskSign.y = this.taskSignY;
+		this.taskSign.width = this.taskSignWidth;
+		this.taskSign.height = this.taskSignHeight;
+		this.taskSign.texture = RES.getRes(npcImage.ACCEPTABLEimage);
 	}
-
 }
 
-class TaskSubmitState implements State {
+class TaskCanSubmitState implements State {
+	private npc: NPC;
 
-	private npc:NPC;
+	taskSign: egret.Bitmap;
+	taskSignX = 200;
+	taskSignY = 336;
+	taskSignWidth = 64;
+	taskSignHeight = 64;
 
-	taskSigh:egret.Shape;
-	taskSighX = 64;
-	taskSighY = 64;
-	taskSighWidth = 64;
-	taskSighHeight = 64;
-
-	constructor(npc:NPC) {
+	constructor(npc: NPC) {
 		this.npc = npc;
-		this.taskSigh = new egret.Shape();		
-
+		this.taskSign = new egret.Bitmap();
 	}
 
 	onEnter() {
-        this.drawTaskSign();		
-		this.npc.npcStage.addChild(this.taskSigh);
+        this.drawTaskSign();
+		this.npc.npcStage.addChild(this.taskSign);
 		console.log("Enter Task Submit State");
-
 	}
 
 	onExit() {
-		this.npc.npcStage.removeChild(this.taskSigh);
+		this.npc.npcStage.removeChild(this.taskSign);
 		console.log("Exit Task Submit State");
-
 	}
 
-	drawTaskSign(){
-        this.taskSigh.x = this.taskSighX;
-		this.taskSigh.y = this.taskSighY;
-		this.taskSigh.width = this.taskSighWidth;
-		this.taskSigh.height = this.taskSighHeight;
-
+	drawTaskSign() {
+        this.taskSign.x = this.taskSignX;
+		this.taskSign.y = this.taskSignY;
+		this.taskSign.width = this.taskSignWidth;
+		this.taskSign.height = this.taskSignHeight;
+		this.taskSign.texture = RES.getRes(npcImage.CAN_SUBMITimage);
 	}
-
 }

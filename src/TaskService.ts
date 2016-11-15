@@ -28,7 +28,6 @@ class TaskService {
         }
     }
 
-
    	finish(id: string): number {
         for (var i = 0; i < this.taskList.length; i++) {
             if (this.taskList[i].id == id) {
@@ -47,7 +46,6 @@ class TaskService {
         return rule(this.taskList, Id);
 
     }
-
 
     notifyTaskPanel(task: Task) {
         for (var i = 0; i < this.observerList.length; i++) {
@@ -69,7 +67,6 @@ class TaskService {
 }
 
 class ObserverWithType {
-
     observer: Observer;
     type: string;
 
