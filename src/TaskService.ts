@@ -4,6 +4,18 @@ interface Strategy {
 
 
 class TaskService {
+
+
+    task01: Task;
+
+    public constructor() {
+
+        this.taskList = new Array();
+        this.task01 = new Task("000", "Task000", "Go to NPC_2", TaskStatus.ACCEPTABLE, "npc_0", "npc_1");
+        this.taskList.push(this.task01);
+    }
+
+
     public getTaskByCustomStrategy(strategy: Strategy) {
         return strategy.selector(this.taskList);
     }
@@ -20,7 +32,7 @@ class TaskService {
     private notify() {
 
     }
-    
+
     finish(id: string) {
         console.log("finish" + id);
         let task = this.taskList[id];
@@ -29,4 +41,10 @@ class TaskService {
         }
     }
 
+}
+
+
+enum ErrorCode {
+    SUCCESS,
+    ERROR_TASK,
 }

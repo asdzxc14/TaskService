@@ -1,34 +1,24 @@
 class Task {
-
-    private _id: string;
-    public _name: string;
-    public _status: TaskStatus;
-    public desc: string;
-
-    public get id(): string {
-        return this._id;
+    id: string;
+    name: string;
+    desc: string;
+    status: TaskStatus;
+    fromNpcId: string;
+    toNpcId: string;
+    public constructor(id:string,name:string,desc:string,status:number,fromNpcID:string,toNpcId) {
+        this.id = id;
+        this.name = name;
+        this.desc = desc;
+        this.status = status;
+        this.fromNpcId = fromNpcID;
+        this.toNpcId = toNpcId;
     }
-
-    public get status(): TaskStatus {
-        return this._status;
-    }
-
-    public set status(value: TaskStatus) {
-        this._status = value;
-    }
-}
-
-
-enum ErrorCode {
-    SUCCESS,
-    ERROR_TASK,
-    
 }
 
 enum TaskStatus {
-    UNACCEPTABLE,
-    ACCEPTABLE,
-    DURING,
-    CAN_SUBMIT,
-    SUBMITTED
+    UNACCEPTABLE = 0,
+    ACCEPTABLE = 1,
+    DURING = 2,
+    CAN_SUBMIT = 3,
+    SUBMITTED = 4
 }
