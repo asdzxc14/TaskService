@@ -2,7 +2,7 @@ class Task {
     id: string;
     name: string;
     desc: string;
-    status: TaskStatus;
+    status: number;
     fromNpcId: string;
     toNpcId: string;
     public constructor(id:string,name:string,desc:string,status:number,fromNpcID:string,toNpcId) {

@@ -103,14 +103,17 @@ var Main = (function (_super) {
     p.createGameScene = function () {
         this.touchEnabled = true;
         var taskService = new TaskService();
-        var npc_0 = new NPC("npc_0", "NPC_1");
-        npc_0.setNpc(0, 100, 0x800080);
+        var taskPanel = new TaskPanel(this, taskService);
+        var npc_0 = new NPC("npc_0", "NPC_1", taskService);
+        npc_0.setNpc(0, 100);
         npc_0.drawNpc();
         this.addChild(npc_0.npcStage);
-        var npc_1 = new NPC("npc_1", "NPC_2");
-        npc_1.setNpc(200, 100, 0x0000FF);
+        npc_0.getTask();
+        var npc_1 = new NPC("npc_1", "NPC_2", taskService);
+        npc_1.setNpc(200, 100);
         npc_1.drawNpc();
         this.addChild(npc_1.npcStage);
+        npc_1.getTask();
     };
     return Main;
 }(egret.DisplayObjectContainer));
