@@ -6,7 +6,7 @@ var npcImage = {
     CAN_SUBMITimage: "CAN_SUBMIT_png",
 };
 var NPC = (function () {
-    function NPC(npcId, npcName, taskService) {
+    function NPC(npcId, npcName, taskService, taskPanel) {
         this.tileSize = 64;
         this.emojiX = 200;
         this.emojiY = 400;
@@ -23,6 +23,7 @@ var NPC = (function () {
         this.taskAvilableState = new TaskAvilableState(this);
         this.taskCanSubmitState = new TaskCanSubmitState(this);
         this.taskStateMachine = new StateMachine(this.taskNoneState);
+        this.taskPanel = taskPanel;
     }
     var d = __define,c=NPC,p=c.prototype;
     p.getTask = function () {
@@ -86,13 +87,12 @@ var NPC = (function () {
         this.task = task;
         this.checkState();
     };
-    ///////////////////
     p.onNpcClick = function (e) {
         if (this.task.status == TaskStatus.ACCEPTABLE && this.task.fromNpcId == this.npcId) {
-            this.taskService.notifyTaskPanel(this.task);
+            this.taskPanel.onChange(this.task);
         }
         else if (this.task.status == TaskStatus.CAN_SUBMIT && this.task.toNpcId == this.npcId) {
-            this.taskService.notifyTaskPanel(this.task);
+            this.taskPanel.onChange(this.task);
         }
     };
     p.rule = function (taskList, npcId) {

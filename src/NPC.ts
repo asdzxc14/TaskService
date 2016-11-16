@@ -27,8 +27,9 @@ class NPC implements Observer {
     taskAvilableState: State;
     taskCanSubmitState: State;
     taskStateMachine: StateMachine;
+    taskPanel: TaskPanel;
 
-    public constructor(npcId: string, npcName: string, taskService: TaskService) {
+    public constructor(npcId: string, npcName: string, taskService: TaskService, taskPanel: TaskPanel) {
         this.npcStage = new egret.DisplayObjectContainer();
         this.npcStageShape = new egret.Shape();
         this.emoji = new egret.Bitmap();
@@ -41,6 +42,7 @@ class NPC implements Observer {
         this.taskAvilableState = new TaskAvilableState(this);
         this.taskCanSubmitState = new TaskCanSubmitState(this);
         this.taskStateMachine = new StateMachine(this.taskNoneState);
+        this.taskPanel = taskPanel;
     }
 
     getTask() {
@@ -114,12 +116,12 @@ class NPC implements Observer {
         this.checkState();
     }
 
-    ///////////////////
     onNpcClick(e: egret.TouchEvent) {
         if (this.task.status == TaskStatus.ACCEPTABLE && this.task.fromNpcId == this.npcId) {
-            this.taskService.notifyTaskPanel(this.task);
+            this.taskPanel.onChange(this.task);
+
         } else if (this.task.status == TaskStatus.CAN_SUBMIT && this.task.toNpcId == this.npcId) {
-            this.taskService.notifyTaskPanel(this.task);
+            this.taskPanel.onChange(this.task);
         }
     }
 

@@ -104,13 +104,14 @@ var Main = (function (_super) {
         this.touchEnabled = true;
         var taskService = new TaskService();
         var taskPanel = new TaskPanel(this, taskService);
-        var npc_0 = new NPC("npc_0", "NPC_1", taskService);
+        var taskListPanel = new TaskListPanel(this, taskService);
+        var npc_0 = new NPC("npc_0", "NPC_1", taskService, taskPanel);
         npc_0.setNpc(0, 100);
         npc_0.drawNpc();
         this.addChild(npc_0.npcStage);
         npc_0.getTask();
-        var npc_1 = new NPC("npc_1", "NPC_2", taskService);
-        npc_1.setNpc(200, 100);
+        var npc_1 = new NPC("npc_1", "NPC_2", taskService, taskPanel);
+        npc_1.setNpc(300, 100);
         npc_1.drawNpc();
         this.addChild(npc_1.npcStage);
         npc_1.getTask();

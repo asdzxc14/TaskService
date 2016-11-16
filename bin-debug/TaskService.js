@@ -7,17 +7,23 @@ var TaskService = (function () {
     }
     var d = __define,c=TaskService,p=c.prototype;
     p.addObserver = function (observer, type) {
-        this.observerList.push(new ObserverWithType(observer, type));
+        this.observerList.push(observer);
+    };
+    p.notify = function (task) {
+        for (var i = 0; i < this.observerList.length; i++) {
+            this.observerList[i].onChange(task);
+        }
     };
     p.accept = function (id) {
         for (var i = 0; i < this.taskList.length; i++) {
             if (this.taskList[i].id == id) {
                 console.log("Find Task: " + this.taskList[i].id);
                 this.taskList[i].status = TaskStatus.CAN_SUBMIT;
-                this.notifyNPC(this.taskList[i]);
+                this.notify(this.taskList[i]);
                 return ErrorCode.SUCCESS;
             }
             else if (i == this.taskList.length - 1) {
+                console.log("Cannot find Task");
                 return ErrorCode.ERROR_TASK;
             }
         }
@@ -26,7 +32,7 @@ var TaskService = (function () {
         for (var i = 0; i < this.taskList.length; i++) {
             if (this.taskList[i].id == id) {
                 this.taskList[i].status = TaskStatus.SUBMITTED;
-                this.notifyNPC(this.taskList[i]);
+                this.notify(this.taskList[i]);
                 return ErrorCode.SUCCESS;
             }
             else if (i == this.taskList.length - 1) {
@@ -34,24 +40,8 @@ var TaskService = (function () {
             }
         }
     };
-    p.getTaskByCustomRole = function (rule, Id) {
-        return rule(this.taskList, Id);
-    };
-    p.notifyTaskPanel = function (task) {
-        for (var i = 0; i < this.observerList.length; i++) {
-            if (this.observerList[i].type == "TaskPanel") {
-                this.observerList[i].observer.onChange(task);
-            }
-        }
-    };
-    p.notifyNPC = function (task) {
-        for (var i = 0; i < this.observerList.length; i++) {
-            console.log("Type:" + this.observerList[i].type);
-            if (this.observerList[i].type == "NPC") {
-                console.log("Find NPC");
-                this.observerList[i].observer.onChange(task);
-            }
-        }
+    p.getTaskByCustomRole = function (rule, id) {
+        return rule(this.taskList, id);
     };
     return TaskService;
 }());

@@ -6,15 +6,13 @@ class TaskNoneState implements State {
 	}
 
 	onEnter() {
-		console.log("Enter Task None State");
+
 	}
 
 	onExit() {
-		console.log("Exit Task None State");
+
 	}
 }
-
-
 
 class TaskAvilableState implements State {
 	private npc: NPC;
