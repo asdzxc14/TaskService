@@ -25,6 +25,7 @@ class NPC implements Observer {
 
     taskNoneState: State;
     taskAvilableState: State;
+    taskDuringState: State;
     taskCanSubmitState: State;
     taskStateMachine: StateMachine;
     taskPanel: TaskPanel;
@@ -40,6 +41,7 @@ class NPC implements Observer {
 
         this.taskNoneState = new TaskNoneState(this);
         this.taskAvilableState = new TaskAvilableState(this);
+        this.taskDuringState = new TaskDuringState(this);
         this.taskCanSubmitState = new TaskCanSubmitState(this);
         this.taskStateMachine = new StateMachine(this.taskNoneState);
         this.taskPanel = taskPanel;
@@ -96,7 +98,12 @@ class NPC implements Observer {
                 break;
 
             case 2:
-
+                if (this.task.toNpcId == this.npcId) {
+                    this.taskStateMachine.changeState(this.taskDuringState);
+                } else {
+                    this.taskStateMachine.changeState(this.taskNoneState);
+                }
+                break;
             case 3:
                 if (this.task.toNpcId == this.npcId) {
                     this.taskStateMachine.changeState(this.taskCanSubmitState);
@@ -116,19 +123,13 @@ class NPC implements Observer {
         this.checkState();
     }
 
-    onNpcClick(e: egret.TouchEvent) {
-        if (this.task.status == TaskStatus.ACCEPTABLE && this.task.fromNpcId == this.npcId) {
-            this.taskPanel.onChange(this.task);
-
-        } else if (this.task.status == TaskStatus.CAN_SUBMIT && this.task.toNpcId == this.npcId) {
-            this.taskPanel.onChange(this.task);
-        }
+    onNpcClick(e: egret.TouchEvent, task: Task = this.task, npcid: string = this.npcId) {
+        this.taskService.checkStatus(task, npcid,this.taskPanel);
     }
-
+    
     rule(taskList: Task[], npcId: string): Task {
         for (var i = 0; i < taskList.length; i++) {
             if (taskList[i].fromNpcId == npcId || taskList[i].toNpcId == npcId) {
-                console.log("Find");
                 return taskList[i];
 
             }

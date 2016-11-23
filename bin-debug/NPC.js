@@ -21,6 +21,7 @@ var NPC = (function () {
         this.taskService.addObserver(this, "NPC");
         this.taskNoneState = new TaskNoneState(this);
         this.taskAvilableState = new TaskAvilableState(this);
+        this.taskDuringState = new TaskDuringState(this);
         this.taskCanSubmitState = new TaskCanSubmitState(this);
         this.taskStateMachine = new StateMachine(this.taskNoneState);
         this.taskPanel = taskPanel;
@@ -70,6 +71,13 @@ var NPC = (function () {
                 }
                 break;
             case 2:
+                if (this.task.toNpcId == this.npcId) {
+                    this.taskStateMachine.changeState(this.taskDuringState);
+                }
+                else {
+                    this.taskStateMachine.changeState(this.taskNoneState);
+                }
+                break;
             case 3:
                 if (this.task.toNpcId == this.npcId) {
                     this.taskStateMachine.changeState(this.taskCanSubmitState);
@@ -87,18 +95,14 @@ var NPC = (function () {
         this.task = task;
         this.checkState();
     };
-    p.onNpcClick = function (e) {
-        if (this.task.status == TaskStatus.ACCEPTABLE && this.task.fromNpcId == this.npcId) {
-            this.taskPanel.onChange(this.task);
-        }
-        else if (this.task.status == TaskStatus.CAN_SUBMIT && this.task.toNpcId == this.npcId) {
-            this.taskPanel.onChange(this.task);
-        }
+    p.onNpcClick = function (e, task, npcid) {
+        if (task === void 0) { task = this.task; }
+        if (npcid === void 0) { npcid = this.npcId; }
+        this.taskService.checkStatus(task, npcid, this.taskPanel);
     };
     p.rule = function (taskList, npcId) {
         for (var i = 0; i < taskList.length; i++) {
             if (taskList[i].fromNpcId == npcId || taskList[i].toNpcId == npcId) {
-                console.log("Find");
                 return taskList[i];
             }
         }

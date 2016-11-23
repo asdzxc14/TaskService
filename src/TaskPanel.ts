@@ -186,11 +186,10 @@ class TaskPanel implements Observer {
 	}
 }
 
-class TaskListPanel {
+class TaskListPanel implements Observer {
 	panel: egret.DisplayObjectContainer;
 	stage: egret.DisplayObjectContainer;
 
-	private id = "TaskPanel";
 	private taskPanel: TaskPanel;
 	private taskService: TaskService;
 	private currentTaskId: string;
@@ -235,7 +234,7 @@ class TaskListPanel {
 		this.taskStateTextField = new egret.TextField();
 		this.backGround = new egret.Shape();
 		this.drawPanel();
-		this.getTask();
+		//this.getTask();
 		this.stage.addChild(this.panel);
 	}
 
@@ -320,7 +319,7 @@ class TaskListPanel {
                 break;
 		}
 	}
-
+/*
 	rule(taskList: Task[], id: string): Task {
 		for (var i = 0; i < taskList.length; i++) {
 			if (taskList[i].status != TaskStatus.UNACCEPTABLE) {
@@ -334,5 +333,6 @@ class TaskListPanel {
 		var task = this.taskService.getTaskByCustomRole(this.rule, this.id);
 		this.onChange(task);
 	}
+	*/
 }
 

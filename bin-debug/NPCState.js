@@ -39,6 +39,35 @@ var TaskAvilableState = (function () {
     return TaskAvilableState;
 }());
 egret.registerClass(TaskAvilableState,'TaskAvilableState',["State"]);
+var TaskDuringState = (function () {
+    function TaskDuringState(npc) {
+        this.taskSighX = 200;
+        this.taskSighY = 336;
+        this.taskSighWidth = 64;
+        this.taskSighHeight = 64;
+        this.npc = npc;
+        this.taskSign = new egret.Bitmap();
+    }
+    var d = __define,c=TaskDuringState,p=c.prototype;
+    p.onEnter = function () {
+        this.drawTaskSign();
+        this.npc.npcStage.addChild(this.taskSign);
+        console.log("Enter Task Avilable State");
+    };
+    p.onExit = function () {
+        this.npc.npcStage.removeChild(this.taskSign);
+        console.log("Exit Task Avilable State");
+    };
+    p.drawTaskSign = function () {
+        this.taskSign.x = this.taskSighX;
+        this.taskSign.y = this.taskSighY;
+        this.taskSign.width = this.taskSighWidth;
+        this.taskSign.height = this.taskSighHeight;
+        this.taskSign.texture = RES.getRes(npcImage.DURINGimage);
+    };
+    return TaskDuringState;
+}());
+egret.registerClass(TaskDuringState,'TaskDuringState',["State"]);
 var TaskCanSubmitState = (function () {
     function TaskCanSubmitState(npc) {
         this.taskSignX = 200;

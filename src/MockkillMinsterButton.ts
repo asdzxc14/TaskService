@@ -38,7 +38,6 @@ class MockKillMonsterButton {
         this.buttonBack.graphics.beginFill(this.buttonColor, 1);
         this.buttonBack.graphics.drawRect(this.buttonX, this.buttonY, this.buttonWidth, this.buttonHeight);
         this.buttonBack.graphics.endFill();
-
     }
     private setButtonText() {
         this.buttonTextField.text = this.buttonTextFieldText;
@@ -47,7 +46,6 @@ class MockKillMonsterButton {
         this.buttonTextField.width = this.buttonTextFieldWidth;
         this.buttonTextField.bold = false;
         this.buttonTextField.textColor = this.buttonTextFieldColor;
-
     }
     private drawButton() {
         this.drawButtonBack();
@@ -62,34 +60,31 @@ class MockKillMonsterButton {
 
         this.button.touchEnabled = true;
         this.button.addEventListener(egret.TouchEvent.TOUCH_TAP, this.onButtonClick, this);
-
     }
     private onButtonClick(e: egret.TouchEvent) {
         switch (this.currentTaskStatus) {
-            case TaskStatus.ACCEPTABLE:
+            case 0:
+
+            case 1:
                 break;
 
-            case TaskStatus.DURING:
+            case 2:
                 this.monsterValue++;
                 console.log(this.monsterValue);
                 if (this.monsterValue == 10) {
-                    this.taskService.canFinish(this.currentTaskId);
+                    this.taskService.canSubmit(this.currentTaskId);
                 }
                 break;
 
-
-            case TaskStatus.CAN_SUBMIT:
+            case 3:
                 this.monsterValue = 0;
                 break;
 
-            default:
-
+            case 4:
         }
-
     }
     public onChange(task: Task) {
         this.currentTaskId = task.id;
         this.currentTaskStatus = task.status;
-
     }
 }

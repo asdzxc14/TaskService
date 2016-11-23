@@ -1,7 +1,7 @@
 {
 	"groups": [
 		{
-			"keys": "bg_jpg,egret_icon_png,description_json,NPC1_png,NPC2_png,ACCEPTABLE_png,CAN_SUBMIT_png",
+			"keys": "bg_jpg,egret_icon_png,description_json,NPC1_png,NPC2_png,ACCEPTABLE_png,CAN_SUBMIT_png,DURING_png",
 			"name": "preload"
 		}
 	],
@@ -40,6 +40,11 @@
 			"name": "CAN_SUBMIT_png",
 			"type": "image",
 			"url": "assets/CAN_SUBMIT.png"
+		},
+		{
+			"name": "DURING_png",
+			"type": "image",
+			"url": "assets/DURING.png"
 		}
 	]
 }

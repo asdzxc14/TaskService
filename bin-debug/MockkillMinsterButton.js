@@ -1,10 +1,5 @@
 var MockKillMonsterButton = (function () {
     function MockKillMonsterButton(stage, taskService) {
-        this.backColor = 0xFFFFFF;
-        this.panelX = 0;
-        this.panelY = 0;
-        this.panelWidth = 200;
-        this.panelHeight = 300;
         this.buttonColor = 0xFF0000;
         this.buttonX = 350;
         this.buttonY = 600;
@@ -20,7 +15,6 @@ var MockKillMonsterButton = (function () {
         this.taskService = taskService;
         this.taskService.addObserver(this, "MockKillMonsterButton");
         this.panel = new egret.DisplayObjectContainer();
-        this.backGround = new egret.Shape();
         this.button = new egret.DisplayObjectContainer();
         this.buttonBack = new egret.Shape();
         this.buttonTextField = new egret.TextField();
@@ -48,10 +42,6 @@ var MockKillMonsterButton = (function () {
         this.button.addChild(this.buttonTextField);
     };
     p.drawPanel = function () {
-        this.panel.x = this.panelX;
-        this.panel.y = this.panelY;
-        this.panel.width = this.panelWidth;
-        this.panel.height = this.panelHeight;
         this.drawButton();
         this.panel.addChild(this.button);
         this.button.touchEnabled = true;
@@ -59,19 +49,20 @@ var MockKillMonsterButton = (function () {
     };
     p.onButtonClick = function (e) {
         switch (this.currentTaskStatus) {
-            case TaskStatus.ACCEPTABLE:
+            case 0:
+            case 1:
                 break;
-            case TaskStatus.DURING:
+            case 2:
                 this.monsterValue++;
                 console.log(this.monsterValue);
                 if (this.monsterValue == 10) {
-                    this.taskService.canFinish(this.currentTaskId);
+                    this.taskService.canSubmit(this.currentTaskId);
                 }
                 break;
-            case TaskStatus.CAN_SUBMIT:
+            case 3:
                 this.monsterValue = 0;
                 break;
-            default:
+            case 4:
         }
     };
     p.onChange = function (task) {

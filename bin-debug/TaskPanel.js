@@ -148,7 +148,6 @@ var TaskPanel = (function () {
 egret.registerClass(TaskPanel,'TaskPanel',["Observer"]);
 var TaskListPanel = (function () {
     function TaskListPanel(stage, taskService) {
-        this.id = "TaskPanel";
         this.backColor = 0xFFFFFF;
         this.panelX = 0;
         this.panelY = 0;
@@ -178,7 +177,7 @@ var TaskListPanel = (function () {
         this.taskStateTextField = new egret.TextField();
         this.backGround = new egret.Shape();
         this.drawPanel();
-        this.getTask();
+        //this.getTask();
         this.stage.addChild(this.panel);
     }
     var d = __define,c=TaskListPanel,p=c.prototype;
@@ -251,19 +250,7 @@ var TaskListPanel = (function () {
                 break;
         }
     };
-    p.rule = function (taskList, id) {
-        for (var i = 0; i < taskList.length; i++) {
-            if (taskList[i].status != TaskStatus.UNACCEPTABLE) {
-                console.log(id + " Find Task");
-                return taskList[i];
-            }
-        }
-    };
-    p.getTask = function () {
-        var task = this.taskService.getTaskByCustomRole(this.rule, this.id);
-        this.onChange(task);
-    };
     return TaskListPanel;
 }());
-egret.registerClass(TaskListPanel,'TaskListPanel');
+egret.registerClass(TaskListPanel,'TaskListPanel',["Observer"]);
 //# sourceMappingURL=TaskPanel.js.map

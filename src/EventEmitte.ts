@@ -1,7 +1,7 @@
-class EventEmitter{
-    addObserver(){
+class EventEmitter {
+    addObserver() {
     }
 
-    notify(){
+    notify() {
     }
 }

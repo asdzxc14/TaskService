@@ -6,11 +6,9 @@ class TaskNoneState implements State {
 	}
 
 	onEnter() {
-
 	}
 
 	onExit() {
-
 	}
 }
 
@@ -46,6 +44,43 @@ class TaskAvilableState implements State {
 		this.taskSign.height = this.taskSignHeight;
 		this.taskSign.texture = RES.getRes(npcImage.ACCEPTABLEimage);
 	}
+}
+class TaskDuringState implements State {
+
+	private npc: NPC;
+
+    taskSign: egret.Bitmap;
+    taskSighX = 200;
+    taskSighY = 336;
+    taskSighWidth = 64;
+    taskSighHeight = 64;
+
+    constructor(npc: NPC) {
+        this.npc = npc;
+        this.taskSign = new egret.Bitmap();
+
+    }
+
+    onEnter() {
+        this.drawTaskSign();
+        this.npc.npcStage.addChild(this.taskSign);
+        console.log("Enter Task Avilable State");
+
+    }
+
+    onExit() {
+        this.npc.npcStage.removeChild(this.taskSign);
+        console.log("Exit Task Avilable State");
+
+    }
+
+    drawTaskSign() {
+        this.taskSign.x = this.taskSighX;
+        this.taskSign.y = this.taskSighY;
+        this.taskSign.width = this.taskSighWidth;
+        this.taskSign.height = this.taskSighHeight;
+        this.taskSign.texture = RES.getRes(npcImage.DURINGimage);
+    }
 }
 
 class TaskCanSubmitState implements State {
