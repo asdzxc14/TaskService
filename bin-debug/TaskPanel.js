@@ -239,6 +239,8 @@ var TaskListPanel = (function () {
                 this.taskStateTextField.text = "可接受";
                 break;
             case 2:
+                this.taskStateTextField.text = "未完成";
+                break;
             case 3:
                 this.taskStateTextField.text = "可提交";
                 break;

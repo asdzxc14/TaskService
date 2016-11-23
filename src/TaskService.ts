@@ -34,6 +34,17 @@ class TaskService {
         }
     }
 
+	public canFinish(id: string) {
+		var task: Task;
+		task = taskSearch(this.taskList, id);
+		switch (id) {
+			case "002":
+				task.status = 3;
+				this.notify(task);
+				break;
+		}
+	}
+
    	finish(id: string): number {
         for (var i = 0; i < this.taskList.length; i++) {
             if (this.taskList[i].id == id) {
@@ -49,6 +60,19 @@ class TaskService {
     getTaskByCustomRole(rule: Function, id: string): Task {
         return rule(this.taskList, id);
     }
+}
+
+function taskSearch(taskList: Task[], id: string): Task {
+	for (var i = 0; i <= taskList.length - 1; i++) {
+		if (taskList[i].id == id) {
+			return taskList[i];
+
+		}
+		else {
+			console.log("task named" + id + "can not be found");
+		}
+	}
+
 }
 
 class ObserverWithType {

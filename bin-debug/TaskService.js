@@ -28,6 +28,16 @@ var TaskService = (function () {
             }
         }
     };
+    p.canFinish = function (id) {
+        var task;
+        task = taskSearch(this.taskList, id);
+        switch (id) {
+            case "002":
+                task.status = 3;
+                this.notify(task);
+                break;
+        }
+    };
     p.finish = function (id) {
         for (var i = 0; i < this.taskList.length; i++) {
             if (this.taskList[i].id == id) {
@@ -46,6 +56,16 @@ var TaskService = (function () {
     return TaskService;
 }());
 egret.registerClass(TaskService,'TaskService');
+function taskSearch(taskList, id) {
+    for (var i = 0; i <= taskList.length - 1; i++) {
+        if (taskList[i].id == id) {
+            return taskList[i];
+        }
+        else {
+            console.log("task named" + id + "can not be found");
+        }
+    }
+}
 var ObserverWithType = (function () {
     function ObserverWithType(observer, type) {
         this.observer = observer;
