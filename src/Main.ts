@@ -122,7 +122,7 @@ class Main extends egret.DisplayObjectContainer {
         var taskService = new TaskService();
         var taskPanel = new TaskPanel(this, taskService);
         var taskListPanel = new TaskListPanel(this, taskService);
-        var mockkillmonsterbutton = new MockKillMonsterButton(this, taskService);
+        var mockKillMonstorButton = new MockKillMonstorButton(this, taskService);
 
         var npc_0 = new NPC("npc_0", "NPC_1", taskService, taskPanel);
         npc_0.setNpc(0, 100);

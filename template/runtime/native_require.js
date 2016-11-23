@@ -12,7 +12,7 @@ var game_file_list = [
 	"bin-debug/EventEmitte.js",
 	"bin-debug/LoadingUI.js",
 	"bin-debug/Main.js",
-	"bin-debug/MockkillMinsterButton.js",
+	"bin-debug/MockKillMonstorButton.js",
 	"bin-debug/NPC.js",
 	"bin-debug/NPCState.js",
 	"bin-debug/Observer.js",

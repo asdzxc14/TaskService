@@ -1,16 +1,29 @@
-var MockKillMonsterButton = (function () {
-    function MockKillMonsterButton(stage, taskService) {
-        this.buttonColor = 0xFF0000;
-        this.buttonX = 350;
-        this.buttonY = 600;
-        this.buttonWidth = 80;
-        this.buttonHeight = 70;
-        this.buttonTextFieldText = "Kill!";
-        this.buttonTextFieldX = this.buttonX + 15;
-        this.buttonTextFieldY = this.buttonY + 20;
-        this.buttonTextFieldWidth = 100;
-        this.buttonTextFieldColor = 0xFFFFFF;
-        this.monsterValue = 0;
+class MockKillMonstorButton {
+    panel: egret.DisplayObjectContainer;
+    stage: egret.DisplayObjectContainer;
+
+    private taskService: TaskService;
+    private currentTaskId: string;
+    private currentTaskStatus: number;
+
+    private button: egret.DisplayObjectContainer;
+    private buttonBack: egret.Shape;
+    private buttonColor = 0xFF0000;
+    private buttonX = 350;
+    private buttonY = 600;
+    private buttonWidth = 80;
+    private buttonHeight = 70;
+
+    private buttonTextField: egret.TextField;
+    private buttonTextFieldText = "Kill!";
+    private buttonTextFieldX = this.buttonX + 15;
+    private buttonTextFieldY = this.buttonY + 20;
+    private buttonTextFieldWidth = 100;
+    private buttonTextFieldColor = 0xFFFFFF;
+
+    public monsterValue = 0;
+
+    public constructor(stage: egret.DisplayObjectContainer, taskService: TaskService) {
         this.stage = stage;
         this.taskService = taskService;
         this.taskService.addObserver(this, "MockKillMonsterButton");
@@ -21,37 +34,40 @@ var MockKillMonsterButton = (function () {
         this.stage.addChild(this.panel);
         this.drawPanel();
     }
-    var d = __define,c=MockKillMonsterButton,p=c.prototype;
-    p.drawButtonBack = function () {
+    private drawButtonBack() {
         this.buttonBack.graphics.beginFill(this.buttonColor, 1);
         this.buttonBack.graphics.drawRect(this.buttonX, this.buttonY, this.buttonWidth, this.buttonHeight);
         this.buttonBack.graphics.endFill();
-    };
-    p.setButtonText = function () {
+    }
+    private setButtonText() {
         this.buttonTextField.text = this.buttonTextFieldText;
         this.buttonTextField.x = this.buttonTextFieldX;
         this.buttonTextField.y = this.buttonTextFieldY;
         this.buttonTextField.width = this.buttonTextFieldWidth;
         this.buttonTextField.bold = false;
         this.buttonTextField.textColor = this.buttonTextFieldColor;
-    };
-    p.drawButton = function () {
+    }
+    private drawButton() {
         this.drawButtonBack();
         this.setButtonText();
         this.button.addChild(this.buttonBack);
         this.button.addChild(this.buttonTextField);
-    };
-    p.drawPanel = function () {
+    }
+
+    public drawPanel() {
         this.drawButton();
         this.panel.addChild(this.button);
+
         this.button.touchEnabled = true;
         this.button.addEventListener(egret.TouchEvent.TOUCH_TAP, this.onButtonClick, this);
-    };
-    p.onButtonClick = function (e) {
+    }
+    private onButtonClick(e: egret.TouchEvent) {
         switch (this.currentTaskStatus) {
             case 0:
+
             case 1:
                 break;
+
             case 2:
                 this.monsterValue++;
                 console.log(this.monsterValue);
@@ -59,17 +75,16 @@ var MockKillMonsterButton = (function () {
                     this.taskService.canSubmit(this.currentTaskId);
                 }
                 break;
+
             case 3:
                 this.monsterValue = 0;
                 break;
+
             case 4:
         }
-    };
-    p.onChange = function (task) {
+    }
+    public onChange(task: Task) {
         this.currentTaskId = task.id;
         this.currentTaskStatus = task.status;
-    };
-    return MockKillMonsterButton;
-}());
-egret.registerClass(MockKillMonsterButton,'MockKillMonsterButton');
-//# sourceMappingURL=MockkillMinsterButton.js.map
+    }
+}
